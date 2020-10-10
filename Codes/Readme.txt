@@ -2,7 +2,7 @@
 Consideraciones computacionales
 =========================================
 
-Todos los códigos de esta investigación han sido corrido en una laptop HP que tiene las siguientes características:
+Todos los códigos de esta investigación se han corrido en una laptop HP que tiene las siguientes características:
 
 - Procesador: Intel(R) Xeon(R)
 - RAM:32 GB

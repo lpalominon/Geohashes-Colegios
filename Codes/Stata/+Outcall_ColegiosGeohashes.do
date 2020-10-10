@@ -20,21 +20,26 @@ set matsize 11000, permanently
 //==================================
 
 *ssc inst tab_chi, replace
-
+*ssc install diff, replace
 *ssc install outreg2, replace
+*ssc install rdrobust, replace
 
 
 //==================================
 // Carpetas de trabajo
 //==================================
 
-global Personal "C:\Users\BS\Documents\Github"
+*global Personal "C:\Users\BS\Documents\Github"
+global Personal "C:\Users\Admin\Documents\Github"
 
 global Raiz "$Personal\Geohashes-Colegios"
 
 
 global BD = "$Raiz\Data"
 global BD_Colegios = "$BD\Colegios"
+global BD_Eventos = "$BD\Eventos"
+global BD_Socioeconomicos = "$BD\Socioeconomicos"
+global BD_Finales = "$BD\Finales"
 
 
 global Codigos = "$Raiz\Codes\Stata"
@@ -46,25 +51,27 @@ global Resultados_Graficos = "$Resultados\Graficos"
 
 
 
-
-
 //==================================
 // Corriendo todos los do files
 //==================================
 
-* Datos 
 
-* qui do "$Codigos\Cargando_Datos_Colegios.do"
+* Cargando y manipulando datos a nivel de geohashes y colegios
+
+qui do "$Codigos\1_Cargando_Datos_Geohashes.do"
+qui do "$Codigos\2_Generando_BD.do"
+qui do "$Codigos\3_Generando_BD_Final.do"
 
 
-* Datos descriptivo
+* Analisis descriptivo
 
-*qui do "$Codigos\Analisis_Descriptivo.do"
-
+qui do "$Codigos\4_Descriptivos.do"
+qui do "$Codigos\5_Crecimiento.do"
 
 
 * Regresiones
 
+qui do "$Codigos\6_Regresiones.do"
 
 
 

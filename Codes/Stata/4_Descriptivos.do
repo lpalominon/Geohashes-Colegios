@@ -226,25 +226,6 @@ cd "$Codigos"
 use BD_Visitas_Comunas_mean_final.dta, clear
 
 
-* Periodo de analisis
-
-
-gen yeari = 2020
-
-gen monthi1 = 03
-gen monthi2 = 04
-
-gen week_day1 = 01
-gen week_day2 = 06
-
-keep if edate > mdy(monthi1, week_day1, yeari) & edate < mdy(monthi2, week_day2, yeari) 
-
-drop yeari /// 
-monthi1 ///
-monthi2 ///
-week_day1 ///
-week_day2
-
 
 * Colapsando datos
 
@@ -306,13 +287,13 @@ h_5pm_6pm_vec ///
 
 * Graficando
 
+
 cd "$Resultados_Graficos"
 
-graph twoway (line nvis edate, lcolor(blue) mcolor(blue) lwidth(medthin))  ///
-			 (line nvis_sc edate, lcolor(red) mcolor(red) lwidth(medthin))  ///
-			 (line nvis_cc edate, lcolor(black) mcolor(black) lwidth(medium))  ///
-			 (line nvis_vec edate,  lcolor(green) mcolor(green) lwidth(medium) ///
-			 by(Ntnived, compact xrescale yrescale note("")) ///
+graph twoway (line nvis edate if Ntnived == "Nivel de educación - Alto", lcolor(blue) mcolor(blue) lwidth(medthin))  ///
+			 (line nvis_sc edate if Ntnived == "Nivel de educación - Alto", lcolor(red) mcolor(red) lwidth(medthin))  ///
+			 (line nvis_cc edate if Ntnived == "Nivel de educación - Alto", lcolor(black) mcolor(black) lwidth(medium))  ///
+			 (line nvis_vec edate if Ntnived == "Nivel de educación - Alto",  lcolor(green) mcolor(green) lwidth(medium) ///
 				ylabel(, angle(horizontal)) ///
 				ylabel(, format(%18.2fc)) ///
 				ylabel(, labsize(vsmall)) ///
@@ -323,7 +304,7 @@ graph twoway (line nvis edate, lcolor(blue) mcolor(blue) lwidth(medthin))  ///
 				xtitle("") ///
 				xlabel(, format(%tdm_D)) ///
 				xlabel(, grid) ///
-				xlabel(#35) /// 62 110
+				xlabel(#55) /// 
 				tline(02mar2020, lp(dash) lc(orange)) tmlabel(02mar2020 "Ape. Esc.", add labsize(1.7)) ///
 				tline(04mar2020, lp(dash) lc(orange))  ///
 				tline(05mar2020, lp(dash) lc(orange))  ///
@@ -335,17 +316,13 @@ graph twoway (line nvis edate, lcolor(blue) mcolor(blue) lwidth(medthin))  ///
 				4 "Geohashes vecinos de colegios")) ///
 				graphregion(color(white)) ///
 			  )
-graph export Visitas_mean_dia_Ntnived.png, width(1500) height(900) replace
+graph export Visitas_mean_dia_Ntnived_Alto.png, width(1500) height(900) replace
 
 
-
-
-
-graph twoway (line h_7am_8am edate, lcolor(blue) mcolor(blue) lwidth(medthin))  ///
-			 (line h_7am_8am_sc edate, lcolor(red) mcolor(red) lwidth(medthin))  ///
-			 (line h_7am_8am_cc edate, lcolor(black) mcolor(black) lwidth(medium))  ///
-			 (line h_7am_8am_vec edate,  lcolor(green) mcolor(green) lwidth(medium) ///
-			 by(Ntnived, compact xrescale yrescale note("")) ///
+graph twoway (line nvis edate if Ntnived == "Nivel de educación - Medio", lcolor(blue) mcolor(blue) lwidth(medthin))  ///
+			 (line nvis_sc edate if Ntnived == "Nivel de educación - Medio", lcolor(red) mcolor(red) lwidth(medthin))  ///
+			 (line nvis_cc edate if Ntnived == "Nivel de educación - Medio", lcolor(black) mcolor(black) lwidth(medium))  ///
+			 (line nvis_vec edate if Ntnived == "Nivel de educación - Medio",  lcolor(green) mcolor(green) lwidth(medium) ///
 				ylabel(, angle(horizontal)) ///
 				ylabel(, format(%18.2fc)) ///
 				ylabel(, labsize(vsmall)) ///
@@ -356,7 +333,7 @@ graph twoway (line h_7am_8am edate, lcolor(blue) mcolor(blue) lwidth(medthin))  
 				xtitle("") ///
 				xlabel(, format(%tdm_D)) ///
 				xlabel(, grid) ///
-				xlabel(#35) ///
+				xlabel(#55) /// 
 				tline(02mar2020, lp(dash) lc(orange)) tmlabel(02mar2020 "Ape. Esc.", add labsize(1.7)) ///
 				tline(04mar2020, lp(dash) lc(orange))  ///
 				tline(05mar2020, lp(dash) lc(orange))  ///
@@ -368,15 +345,14 @@ graph twoway (line h_7am_8am edate, lcolor(blue) mcolor(blue) lwidth(medthin))  
 				4 "Geohashes vecinos de colegios")) ///
 				graphregion(color(white)) ///
 			  )
-graph export Visitas_mean_7am8am_Ntnived.png, width(1500) height(900) replace
+graph export Visitas_mean_dia_Ntnived_Medio.png, width(1500) height(900) replace
 
 
 
-graph twoway (line h_12pm_1pm edate, lcolor(blue) mcolor(blue) lwidth(medthin))  ///
-			 (line h_12pm_1pm_sc edate, lcolor(red) mcolor(red) lwidth(medthin))  ///
-			 (line h_12pm_1pm_cc edate, lcolor(black) mcolor(black) lwidth(medium))  ///
-			 (line h_12pm_1pm_vec edate,  lcolor(green) mcolor(green) lwidth(medium) ///
-			 by(Ntnived, compact xrescale yrescale note("")) ///
+graph twoway (line nvis edate if Ntnived == "Nivel de educación - Bajo", lcolor(blue) mcolor(blue) lwidth(medthin))  ///
+			 (line nvis_sc edate if Ntnived == "Nivel de educación - Bajo", lcolor(red) mcolor(red) lwidth(medthin))  ///
+			 (line nvis_cc edate if Ntnived == "Nivel de educación - Bajo", lcolor(black) mcolor(black) lwidth(medium))  ///
+			 (line nvis_vec edate if Ntnived == "Nivel de educación - Bajo",  lcolor(green) mcolor(green) lwidth(medium) ///
 				ylabel(, angle(horizontal)) ///
 				ylabel(, format(%18.2fc)) ///
 				ylabel(, labsize(vsmall)) ///
@@ -387,7 +363,7 @@ graph twoway (line h_12pm_1pm edate, lcolor(blue) mcolor(blue) lwidth(medthin)) 
 				xtitle("") ///
 				xlabel(, format(%tdm_D)) ///
 				xlabel(, grid) ///
-				xlabel(#35) ///
+				xlabel(#55) /// 
 				tline(02mar2020, lp(dash) lc(orange)) tmlabel(02mar2020 "Ape. Esc.", add labsize(1.7)) ///
 				tline(04mar2020, lp(dash) lc(orange))  ///
 				tline(05mar2020, lp(dash) lc(orange))  ///
@@ -399,15 +375,22 @@ graph twoway (line h_12pm_1pm edate, lcolor(blue) mcolor(blue) lwidth(medthin)) 
 				4 "Geohashes vecinos de colegios")) ///
 				graphregion(color(white)) ///
 			  )
-graph export Visitas_mean_12pm1pm_Ntnived.png, width(1500) height(900) replace
+graph export Visitas_mean_dia_Ntnived_Bajo.png, width(1500) height(900) replace
 
 
 
-graph twoway (line h_3pm_4pm edate, lcolor(blue) mcolor(blue) lwidth(medthin))  ///
-			 (line h_3pm_4pm_sc edate, lcolor(red) mcolor(red) lwidth(medthin))  ///
-			 (line h_3pm_4pm_cc edate, lcolor(black) mcolor(black) lwidth(medium))  ///
-			 (line h_3pm_4pm_vec edate,  lcolor(green) mcolor(green) lwidth(medium) ///
-			 by(Ntnived, compact xrescale yrescale note("")) ///
+
+
+
+
+
+
+
+
+graph twoway (line h_7am_8am edate if Ntnived == "Nivel de educación - Alto", lcolor(blue) mcolor(blue) lwidth(medthin))  ///
+			 (line h_7am_8am_sc edate if Ntnived == "Nivel de educación - Alto", lcolor(red) mcolor(red) lwidth(medthin))  ///
+			 (line h_7am_8am_cc edate if Ntnived == "Nivel de educación - Alto", lcolor(black) mcolor(black) lwidth(medium))  ///
+			 (line h_7am_8am_vec edate if Ntnived == "Nivel de educación - Alto",  lcolor(green) mcolor(green) lwidth(medium) ///
 				ylabel(, angle(horizontal)) ///
 				ylabel(, format(%18.2fc)) ///
 				ylabel(, labsize(vsmall)) ///
@@ -418,7 +401,7 @@ graph twoway (line h_3pm_4pm edate, lcolor(blue) mcolor(blue) lwidth(medthin))  
 				xtitle("") ///
 				xlabel(, format(%tdm_D)) ///
 				xlabel(, grid) ///
-				xlabel(#35) ///
+				xlabel(#55) ///
 				tline(02mar2020, lp(dash) lc(orange)) tmlabel(02mar2020 "Ape. Esc.", add labsize(1.7)) ///
 				tline(04mar2020, lp(dash) lc(orange))  ///
 				tline(05mar2020, lp(dash) lc(orange))  ///
@@ -430,8 +413,65 @@ graph twoway (line h_3pm_4pm edate, lcolor(blue) mcolor(blue) lwidth(medthin))  
 				4 "Geohashes vecinos de colegios")) ///
 				graphregion(color(white)) ///
 			  )
-graph export Visitas_mean_3pm4pm_Ntnived.png, width(1500) height(900) replace
+graph export Visitas_mean_7am8am_Ntnived_Alto.png, width(1500) height(900) replace
 
+
+graph twoway (line h_7am_8am edate if Ntnived == "Nivel de educación - Medio", lcolor(blue) mcolor(blue) lwidth(medthin))  ///
+			 (line h_7am_8am_sc edate if Ntnived == "Nivel de educación - Medio", lcolor(red) mcolor(red) lwidth(medthin))  ///
+			 (line h_7am_8am_cc edate if Ntnived == "Nivel de educación - Medio", lcolor(black) mcolor(black) lwidth(medium))  ///
+			 (line h_7am_8am_vec edate if Ntnived == "Nivel de educación - Medio",  lcolor(green) mcolor(green) lwidth(medium) ///
+				ylabel(, angle(horizontal)) ///
+				ylabel(, format(%18.2fc)) ///
+				ylabel(, labsize(vsmall)) ///
+				ytitle("Número promedio de visitas") ///
+				ylabel(, grid) ///
+				xlabel(, angle(vertical)) ///
+				xlabel(, labsize(vsmall)) ///
+				xtitle("") ///
+				xlabel(, format(%tdm_D)) ///
+				xlabel(, grid) ///
+				xlabel(#55) ///
+				tline(02mar2020, lp(dash) lc(orange)) tmlabel(02mar2020 "Ape. Esc.", add labsize(1.7)) ///
+				tline(04mar2020, lp(dash) lc(orange))  ///
+				tline(05mar2020, lp(dash) lc(orange))  ///
+				tline(16mar2020, lp(dash) lc(brown)) tmlabel(16mar2020 "Cie. Esc.", add labsize(1.7)) ///
+				xlabel(, labgap(medium)) ///
+				legend(order(1 "Todos los geohashes" ///
+				2 "Geohashes sin colegios" ///
+				3 "Geohashes con colegios" ///
+				4 "Geohashes vecinos de colegios")) ///
+				graphregion(color(white)) ///
+			  )
+graph export Visitas_mean_7am8am_Ntnived_Medio.png, width(1500) height(900) replace
+
+
+graph twoway (line h_7am_8am edate if Ntnived == "Nivel de educación - Bajo", lcolor(blue) mcolor(blue) lwidth(medthin))  ///
+			 (line h_7am_8am_sc edate if Ntnived == "Nivel de educación - Bajo", lcolor(red) mcolor(red) lwidth(medthin))  ///
+			 (line h_7am_8am_cc edate if Ntnived == "Nivel de educación - Bajo", lcolor(black) mcolor(black) lwidth(medium))  ///
+			 (line h_7am_8am_vec edate if Ntnived == "Nivel de educación - Bajo",  lcolor(green) mcolor(green) lwidth(medium) ///
+				ylabel(, angle(horizontal)) ///
+				ylabel(, format(%18.2fc)) ///
+				ylabel(, labsize(vsmall)) ///
+				ytitle("Número promedio de visitas") ///
+				ylabel(, grid) ///
+				xlabel(, angle(vertical)) ///
+				xlabel(, labsize(vsmall)) ///
+				xtitle("") ///
+				xlabel(, format(%tdm_D)) ///
+				xlabel(, grid) ///
+				xlabel(#55) ///
+				tline(02mar2020, lp(dash) lc(orange)) tmlabel(02mar2020 "Ape. Esc.", add labsize(1.7)) ///
+				tline(04mar2020, lp(dash) lc(orange))  ///
+				tline(05mar2020, lp(dash) lc(orange))  ///
+				tline(16mar2020, lp(dash) lc(brown)) tmlabel(16mar2020 "Cie. Esc.", add labsize(1.7)) ///
+				xlabel(, labgap(medium)) ///
+				legend(order(1 "Todos los geohashes" ///
+				2 "Geohashes sin colegios" ///
+				3 "Geohashes con colegios" ///
+				4 "Geohashes vecinos de colegios")) ///
+				graphregion(color(white)) ///
+			  )
+graph export Visitas_mean_7am8am_Ntnived_Bajo.png, width(1500) height(900) replace
 
 
 
